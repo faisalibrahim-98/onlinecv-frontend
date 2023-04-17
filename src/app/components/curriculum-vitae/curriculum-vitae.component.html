@@ -1,0 +1,104 @@
+<article>
+  <p>Create your CV by filling up the form below</p>
+  <form [formGroup]="cvForm">
+    <div class="grid">
+      <b
+        >Name
+        <input type="text" formControlName="name" />
+      </b>
+      <b
+        >Email
+        <input type="email" formControlName="email" />
+      </b>
+      <b
+        >Age
+        <input type="number" formControlName="age" />
+      </b>
+    </div>
+
+    <b>Area of Interest</b>
+    <select>
+      <option>Select Area</option>
+      <option>…</option>
+    </select>
+
+    <b>Skills</b>
+    <fieldset>
+      <label>
+        <input type="checkbox" />
+        Development
+      </label>
+      <label>
+        <input type="checkbox" />
+        Testing
+      </label>
+      <label>
+        <input type="checkbox" />
+        Deployment
+      </label>
+      <label>
+        <input type="checkbox" />
+        Management
+      </label>
+      <label>
+        <input type="checkbox" />
+        Data Analysis
+      </label>
+      <label>
+        <input type="checkbox" />
+        Marketing
+      </label>
+    </fieldset>
+
+    <div class="grid">
+      <fieldset>
+        <b>Most Recent Education</b>
+        <label>
+          <input type="radio" value="medium" />
+          Intermediate
+        </label>
+        <label>
+          <input type="radio" value="medium" />
+          Bachelors
+        </label>
+        <label>
+          <input type="radio" value="medium" />
+          Masters
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <b>GCSE Number</b>
+        <select>
+          <option>Select Number</option>
+          <option>…</option>
+        </select>
+      </fieldset>
+    </div>
+
+    <b
+      >Educational Field Name
+      <input type="text" />
+    </b>
+
+    <div class="grid">
+      <fieldset>
+        <b>Job Sector</b>
+        <input type="text" />
+      </fieldset>
+
+      <fieldset>
+          <b>Years of Experience</b>
+          <input type="number" />
+      </fieldset>
+    </div>
+
+    <b>Contact</b>
+    <label
+      >Phone Number?
+      <input type="tel" />
+    </label>
+
+    <button type="submit" (click)="onSubmit()">SignUp</button>
+  </form>
+</article>

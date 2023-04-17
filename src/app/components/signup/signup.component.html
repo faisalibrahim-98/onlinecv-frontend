@@ -1,0 +1,28 @@
+<article>
+  <h1>Signup</h1>
+  <article>
+    <form [formGroup]="signupForm">
+      <div class="grid">
+        <label
+          >Name
+          <input type="text" formControlName="name" />
+        </label>
+        <label
+          >Email
+          <input type="email" formControlName="email" />
+        </label>
+      </div>
+      <div class="grid">
+        <label
+          >Password
+          <input type="password" formControlName="password" />
+        </label>
+        <label
+          >Age
+          <input type="number" formControlName="age" />
+        </label>
+      </div>
+      <button type="submit" (click)="onSubmit()">SignUp</button>
+    </form>
+  </article>
+</article>

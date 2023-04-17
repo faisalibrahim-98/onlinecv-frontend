@@ -1,0 +1,24 @@
+<article>
+  <h1>Login</h1>
+  <article>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="grid">
+        <label
+          >Email
+          <input type="email" formControlName="email" />
+        </label>
+        <label
+          >Password
+          <input type="password" formControlName="password" />
+        </label>
+      </div>
+      <div>
+        <button type="submit">Login</button>
+      </div>
+    </form>
+    <div class="grid">
+      <label>Dont have an account?</label>
+      <button (click)="onClickSignup()">Sign Up</button>
+    </div>
+  </article>
+</article>

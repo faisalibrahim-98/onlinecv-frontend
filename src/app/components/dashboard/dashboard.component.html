@@ -1,0 +1,34 @@
+<article>
+  <!--  *ngIf="userDetails.account === 'Candidate'" -->
+  <div>
+    <h1>Welcome Job-Seeker!</h1>
+
+    <!-- <h3>Your account details are:</h3>
+    <p>Account ID: {{ userDetails._id }}</p>
+    <p>Your Account Type: {{ userDetails.type }}</p>
+    <p>Your Age: {{ userDetails.age }}</p> -->
+  </div>
+  <p>What would you like to do?</p>
+  <div class="grid">
+    <button
+      style="background-color: #008744; border-color: #008744"
+      (click)="onClickCreate()"
+    >
+      Create CV
+    </button>
+    <button>View CV</button>
+    <button style="background-color: #ffa700; border-color: #ffa700">
+      Update CV
+    </button>
+    <button style="background-color: #d62d20; border-color: #d62d20">
+      Delete CV
+    </button>
+  </div>
+</article>
+
+<article>
+  <!-- *ngIf="userDetails.account === 'Admin'" -->
+  <h1>Welcome Recruiter!</h1>
+  <p>What would you like to do?</p>
+  <button (click)="onClickSearch()">Search Candidates</button>
+</article>
