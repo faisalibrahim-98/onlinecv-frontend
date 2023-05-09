@@ -1,12 +1,10 @@
-<article>
-  <!--  *ngIf="userDetails.account === 'Candidate'" -->
+<article *ngIf="userDetails.userType === 'candidate'">
   <div>
     <h1>Welcome Job-Seeker!</h1>
 
-    <!-- <h3>Your account details are:</h3>
+    <h3>Your account details are:</h3>
     <p>Account ID: {{ userDetails._id }}</p>
-    <p>Your Account Type: {{ userDetails.type }}</p>
-    <p>Your Age: {{ userDetails.age }}</p> -->
+    <p>Your Account Type: {{ userDetails.userType }}</p>
   </div>
   <p>What would you like to do?</p>
   <div class="grid">
@@ -16,18 +14,21 @@
     >
       Create CV
     </button>
-    <button>View CV</button>
-    <button style="background-color: #ffa700; border-color: #ffa700">
+    <button (click)="onClickView()">View CV</button>
+    <button
+      style="background-color: #ffa700; border-color: #ffa700"
+      (click)="onClickUpdate()"
+    >
       Update CV
     </button>
-    <button style="background-color: #d62d20; border-color: #d62d20">
+    <button style="background-color: #d62d20; border-color: #d62d20"
+    (click)="onClickDelete()">
       Delete CV
     </button>
   </div>
 </article>
 
-<article>
-  <!-- *ngIf="userDetails.account === 'Admin'" -->
+<article *ngIf="userDetails.userType === 'recruiter'">
   <h1>Welcome Recruiter!</h1>
   <p>What would you like to do?</p>
   <button (click)="onClickSearch()">Search Candidates</button>

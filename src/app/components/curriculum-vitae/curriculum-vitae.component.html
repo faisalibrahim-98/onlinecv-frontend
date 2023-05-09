@@ -1,3 +1,4 @@
+<a (click)="onClickGoBack()">Go Back</a>
 <article>
   <p>Create your CV by filling up the form below</p>
   <form [formGroup]="cvForm">
@@ -17,88 +18,100 @@
     </div>
 
     <b>Area of Interest</b>
-    <select>
-      <option>Select Area</option>
-      <option>…</option>
+    <select formControlName="interest">
+      <option value="">Select Number</option>
+      <option value="development">Development</option>
+      <option value="qualityAssurance">Quality Assurance</option>
+      <option value="devOps">DevOps</option>
+      <option value="management">Management</option>
+      <option value="humanResource">Human Resource</option>
+      <option value="finance">Finance</option>
+      <option value="engineering">Engineering</option>
     </select>
 
     <b>Skills</b>
     <fieldset>
-      <label>
-        <input type="checkbox" />
-        Development
-      </label>
-      <label>
-        <input type="checkbox" />
-        Testing
-      </label>
-      <label>
-        <input type="checkbox" />
-        Deployment
-      </label>
-      <label>
-        <input type="checkbox" />
-        Management
-      </label>
-      <label>
-        <input type="checkbox" />
-        Data Analysis
-      </label>
-      <label>
-        <input type="checkbox" />
-        Marketing
-      </label>
+      <div *ngFor="let skill of skills; let i = index">
+        <label>
+          <input
+            type="checkbox"
+            [value]="skill.value"
+            (change)="onCheckChange($event)"
+          />
+          {{ skill.name }}
+        </label>
+      </div>
     </fieldset>
 
     <div class="grid">
       <fieldset>
         <b>Most Recent Education</b>
         <label>
-          <input type="radio" value="medium" />
+          <input
+            type="radio"
+            value="Intermediate"
+            formControlName="recentEducation"
+          />
           Intermediate
         </label>
         <label>
-          <input type="radio" value="medium" />
+          <input
+            type="radio"
+            value="Bachelors"
+            formControlName="recentEducation"
+          />
           Bachelors
         </label>
         <label>
-          <input type="radio" value="medium" />
+          <input
+            type="radio"
+            value="Masters"
+            formControlName="recentEducation"
+          />
           Masters
         </label>
       </fieldset>
 
       <fieldset>
         <b>GCSE Number</b>
-        <select>
-          <option>Select Number</option>
-          <option>…</option>
+        <select formControlName="gcse">
+          <option value="">Select Number</option>
+          <option value="9">9</option>
+          <option value="8">8</option>
+          <option value="7">7</option>
+          <option value="6">6</option>
+          <option value="5">5</option>
+          <option value="4">4</option>
+          <option value="3">3</option>
+          <option value="2">2</option>
+          <option value="1">1</option>
         </select>
       </fieldset>
     </div>
 
     <b
       >Educational Field Name
-      <input type="text" />
+      <input type="text" formControlName="fieldName" />
     </b>
 
     <div class="grid">
       <fieldset>
         <b>Job Sector</b>
-        <input type="text" />
+        <input type="text" formControlName="jobSector" />
       </fieldset>
 
       <fieldset>
-          <b>Years of Experience</b>
-          <input type="number" />
+        <b>Years of Experience</b>
+        <input type="number" formControlName="experience" />
       </fieldset>
     </div>
 
     <b>Contact</b>
     <label
       >Phone Number?
-      <input type="tel" />
+      <input type="tel" formControlName="contact" />
     </label>
 
-    <button type="submit" (click)="onSubmit()">SignUp</button>
+    <button type="submit" (click)="onSubmit()">Create CV</button>
   </form>
 </article>

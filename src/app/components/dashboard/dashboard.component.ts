@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,17 +8,50 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
-  userDetails = null;
+  userDetails = {
+    _id: '',
+    username: '',
+    email: '',
+    password: '',
+    userType: '',
+  };
 
-  constructor(private router: Router) {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getUserData();
+  }
+
+  async getUserData(): Promise<void> {
+    try {
+      const id = this.activatedRoute.snapshot.queryParams['id'];
+      this.userDetails = await this.userService.getUserData(id);
+    } catch {}
+  }
 
   onClickCreate() {
-    this.router.navigate(['/cv']);
+    this.router.navigate(['/cv'], {
+      queryParams: { id: this.userDetails._id },
+    });
+  }
+
+  onClickUpdate() {
+    this.router.navigate(['/cv'], {
+      queryParams: { id: this.userDetails._id, update: true },
+    });
   }
 
   onClickSearch() {
-    this.router.navigate(['/search']);
+    this.router.navigate(['/search'], {
+      queryParams: { id: this.userDetails._id },
+    });
   }
+
+  onClickView() {}
+
+  onClickDelete() {}
 }

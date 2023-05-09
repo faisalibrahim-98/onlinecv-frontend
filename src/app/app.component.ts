@@ -1,5 +1,7 @@
+import { NavigationEnd, Router } from '@angular/router';
+import { UserService } from './services/user.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +11,22 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
   isLoggedIn = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userService: UserService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        const segment = event.url.split('?')[0];
+        if (
+          segment === '/dashboard' ||
+          segment === '/cv' ||
+          segment === '/search'
+        ) {
+          this.isLoggedIn = true;
+        }
+      });
+  }
 
   onClickLogin(): void {
     this.router.navigate(['/login']);
@@ -27,5 +42,11 @@ export class AppComponent implements OnInit {
     } else {
       this.router.navigate(['/dashboard']);
     }
+  }
+
+  onClickLogout() {
+    this.userService.logout({});
+
+    this.router.navigate(['/']);
   }
 }

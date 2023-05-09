@@ -1,6 +1,12 @@
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  FormBuilder,
+  FormControl,
+  Validators,
+  FormGroup,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -9,26 +15,24 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent {
   signupForm: FormGroup = new FormGroup({
-    name: new FormControl(''),
+    username: new FormControl(''),
     email: new FormControl(''),
     password: new FormControl(''),
-    age: new FormControl(''),
   });
 
   submitted = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    //private userService: UserService,
+    private userService: UserService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({
-      name: ['', Validators.required],
+      username: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required],
-      age: ['', Validators.required],
     });
   }
 
@@ -40,10 +44,10 @@ export class SignupComponent {
     }
 
     const userBody = {
-      name: this.signupForm.value.name,
+      username: this.signupForm.value.username,
       email: this.signupForm.value.email,
       password: this.signupForm.value.password,
-      age: this.signupForm.value.age,
+      userType: 'candidate',
     };
 
     this.createUser(userBody);
@@ -51,10 +55,10 @@ export class SignupComponent {
 
   async createUser(userBody: Record<string, unknown>) {
     try {
-      // const userData = await this.userService.signup(userBody);
-      // this.router.navigate(['/dashboard'], {
-      //   queryParams: { id: userData.user._id },
-      // });
+      const userData = await this.userService.signup(userBody);
+      this.router.navigate(['/dashboard'], {
+        queryParams: { id: userData.user._id },
+      });
     } catch {}
   }
 }
