@@ -1,66 +1,159 @@
 <article style="background-color: #e9eef2">
-  <div class="search">
-    <input class="search-bar" type="text" placeholder="Search..." />
-    <button class="search-btn">Search</button>
-  </div>
+  <form [formGroup]="searchForm">
+    <div class="search">
+      <input
+        class="search-bar"
+        type="text"
+        placeholder="Enter User Id"
+        formControlName="userId"
+      />
+      <button class="search-btn" type="submit" (click)="onSubmit()">
+        Search
+      </button>
+    </div>
 
-  <div class="grid">
-    <label
-      >Area of Interest
-      <select style="background-color: white; border: 0px">
-        <option>Select</option>
-      </select>
-    </label>
+    <div class="grid">
+      <label
+        >Area of Interest
+        <select
+          formControlName="areaOfInterest"
+          style="background-color: white; border: 0px"
+        >
+          <option value="">Select</option>
+          <option value="development">Development</option>
+          <option value="qualityAssurance">Quality Assurance</option>
+          <option value="devOps">DevOps</option>
+          <option value="management">Management</option>
+          <option value="humanResource">Human Resource</option>
+          <option value="finance">Finance</option>
+          <option value="engineering">Engineering</option>
+        </select>
+      </label>
 
-    <label
-      >Min Education
-      <select style="background-color: white; border: 0px">
-        <option>Select</option>
-      </select>
-    </label>
+      <label
+        >Min Education
+        <select
+          style="background-color: white; border: 0px"
+          formControlName="mostRecentEducation"
+        >
+          <option value="">Select</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Bachelors">Bachelors</option>
+          <option value="Masters">Masters</option>
+        </select>
+      </label>
 
-    <label
-      >GCSE Number
-      <select style="background-color: white; border: 0px">
-        <option>Select</option>
-      </select>
-    </label>
+      <label
+        >GCSE Number
+        <select
+          style="background-color: white; border: 0px"
+          formControlName="GCSENumber"
+        >
+          <option value="">Select Number</option>
+          <option value="9">9</option>
+          <option value="8">8</option>
+          <option value="7">7</option>
+          <option value="6">6</option>
+          <option value="5">5</option>
+          <option value="4">4</option>
+          <option value="3">3</option>
+          <option value="2">2</option>
+          <option value="1">1</option>
+        </select>
+      </label>
 
-    <label
-      >Skill
-      <select style="background-color: white; border: 0px">
-        <option>Select</option>
-      </select>
-    </label>
-  </div>
+      <label
+        >Skill
+        <select
+          style="background-color: white; border: 0px"
+          formControlName="skills"
+        >
+          <option value="">Select</option>
+          <option value="development">Development</option>
+          <option value="testing">Testing</option>
+          <option value="deployment">Deployment</option>
+          <option value="management">Management</option>
+          <option value="dataAnalysis">Data Analysis</option>
+          <option value="marketing">Marketing</option>
+        </select>
+      </label>
+    </div>
 
-  <div class="grid">
-    <label
-      >Experience
-      <select style="background-color: white; border: 0px">
-        <option>Select</option>
-      </select>
-    </label>
+    <div class="grid">
+      <label
+        >Experience
+        <input
+          style="background-color: white; border: 0px"
+          type="text"
+          formControlName="experience"
+        />
+      </label>
 
-    <label
-      >Education Field
-      <input style="background-color: white; border: 0px" type="text" />
-    </label>
+      <label
+        >Education Field
+        <input
+          style="background-color: white; border: 0px"
+          type="text"
+          formControlName="educationalField"
+        />
+      </label>
 
-    <label
-      >Job Sector
-      <input style="background-color: white; border: 0px" type="text" />
-    </label>
-  </div>
+      <label
+        >Job Sector
+        <input
+          style="background-color: white; border: 0px"
+          type="text"
+          formControlName="jobSector"
+        />
+      </label>
+    </div>
+  </form>
 </article>
 
-<div>
-  <article>
-    <b>Candidate Name</b>
+<div *ngIf="cvsData.length">
+  <article *ngFor="let cvData of cvsData">
+    <h2>{{ cvData["name"] }}</h2>
     <div class="grid">
-        <p>Qualificaton</p>
-        <p>Experience</p>
-        <p>GCSE number</p>
+      <b
+        >Area of Interest:
+        <p>{{ cvData["areaOfInterest"] }}</p></b
+      >
+      <b
+        >Years of Experience:
+        <p>{{ cvData["experience"] }}</p></b
+      >
+      <b
+        >GCSE number:
+        <p>{{ cvData["GSCENumber"] }}</p></b
+      >
+    </div>
+    <div class="grid">
+      <b
+        >Contact:
+        <p>{{ cvData["contact"] }}</p></b
+      >
+      <b
+        >Educational Field:
+        <p>{{ cvData["educationalField"] }}</p></b
+      >
+      <b
+        >Email:
+        <p>{{ cvData["email"] }}</p></b
+      >
+    </div>
+    <div class="grid">
+      <b
+        >Job Sector:
+        <p>{{ cvData["jobSector"] }}</p></b
+      >
+      <b
+        >Most Recent Education:
+        <p>{{ cvData["mostRecentEducation"] }}</p></b
+      >
+      <b
+        >User ID:
+        <p>{{ cvData["userId"] }}</p></b
+      >
     </div>
   </article>
 </div>

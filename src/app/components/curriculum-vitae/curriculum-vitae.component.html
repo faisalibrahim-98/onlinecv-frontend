@@ -1,5 +1,5 @@
 <a (click)="onClickGoBack()">Go Back</a>
-<article>
+<article *ngIf="!submitted">
   <p>Create your CV by filling up the form below</p>
   <form [formGroup]="cvForm">
     <div class="grid">
@@ -36,6 +36,7 @@
           <input
             type="checkbox"
             [value]="skill.value"
+            [checked]="skill.selected"
             (change)="onCheckChange($event)"
           />
           {{ skill.name }}
@@ -112,6 +113,10 @@
       <input type="tel" formControlName="contact" />
     </label>
 
-    <button type="submit" (click)="onSubmit()">Create CV</button>
+    <button type="submit" (click)="onSubmit()">{{ buttonText }}</button>
   </form>
+</article>
+
+<article *ngIf="submitted">
+  <h1 style="color: #008744">{{ successMessage }}</h1>
 </article>

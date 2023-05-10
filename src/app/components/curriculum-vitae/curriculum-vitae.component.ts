@@ -18,7 +18,6 @@ export class CurriculumVitaeComponent {
   cvForm: FormGroup = new FormGroup({
     name: new FormControl(''),
     email: new FormControl(''),
-    password: new FormControl(''),
     age: new FormControl(''),
     interest: new FormControl(''),
     skills: new FormArray([]),
@@ -39,8 +38,12 @@ export class CurriculumVitaeComponent {
     { name: 'Marketing', value: 'marketing', selected: false },
   ];
 
+  cvData: any = {};
   submitted = false;
   userId = '';
+  isUpdate = false;
+  buttonText = 'Create CV';
+  successMessage = 'Your CV has been Created';
 
   constructor(
     private curriculumvitaeService: CurriculumvitaeService,
@@ -53,8 +56,7 @@ export class CurriculumVitaeComponent {
     this.cvForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', Validators.required],
-      password: ['', Validators.required],
-      age: ['', Validators.required],
+      age: [''],
       interest: ['', Validators.required],
       skills: new FormArray([]),
       recentEducation: ['', Validators.required],
@@ -66,6 +68,54 @@ export class CurriculumVitaeComponent {
     });
 
     this.userId = this.activatedRoute.snapshot.queryParams['id'];
+    this.setDataForUpdate();
+  }
+
+  setDataForUpdate() {
+    this.isUpdate = this.activatedRoute.snapshot.queryParams['update'];
+
+    if (this.isUpdate) {
+      this.buttonText = 'Update CV';
+      this.successMessage = 'Your CV has been Updated';
+      this.getCVData();
+    }
+  }
+
+  async getCVData() {
+    try {
+      const allUserCvs: Record<string, unknown>[] =
+        await this.curriculumvitaeService.getCvData(this.userId);
+
+      this.cvData = allUserCvs[allUserCvs.length - 1];
+      this.setCVData(this.cvData);
+    } catch {}
+  }
+
+  setCVData(data: Record<string, unknown>) {
+    this.cvForm.patchValue({
+      name: data['name'],
+      email: data['email'],
+      age: data['age'],
+      interest: data['areaOfInterest'],
+      recentEducation: data['mostRecentEducation'],
+      gcse: data['GSCENumber'],
+      fieldName: data['educationalField'],
+      jobSector: data['jobSector'],
+      experience: data['experience'],
+      contact: data['contact'],
+    });
+
+    const formArray: FormArray = this.cvForm.get('skills') as FormArray;
+    (data['skills'] as string[]).forEach((skill) => {
+      formArray.push(new FormControl(skill));
+    });
+
+    this.skills = this.skills.map((skill) => {
+      if ((data['skills'] as String).includes(skill.value)) {
+        skill.selected = true;
+      }
+      return skill;
+    });
   }
 
   onClickGoBack() {
@@ -75,31 +125,32 @@ export class CurriculumVitaeComponent {
   }
 
   async onSubmit() {
-    if (this.cvForm.invalid) {
-      return;
-    }
-
     try {
       const cvBody = {
+        userId: this.userId,
         name: this.cvForm.value.name,
         email: this.cvForm.value.email,
-        password: this.cvForm.value.password,
-        age: this.cvForm.value.age,
-        interest: this.cvForm.value.interest,
+        age: this.cvForm.value.age?.toString() || '0',
+        areaOfInterest: this.cvForm.value.interest,
         skills: this.cvForm.value.skills,
-        recentEducation: this.cvForm.value.recentEducation,
-        gcse: this.cvForm.value.gcse,
-        fieldName: this.cvForm.value.fieldName,
+        mostRecentEducation: this.cvForm.value.recentEducation,
+        GSCENumber: this.cvForm.value.gcse,
+        educationalField: this.cvForm.value.fieldName,
         jobSector: this.cvForm.value.jobSector,
-        experience: this.cvForm.value.experience,
+        experience: this.cvForm.value.experience.toString(),
         contact: this.cvForm.value.contact,
+        createdAt: Date.now(),
       };
 
-      await this.curriculumvitaeService.createCv(cvBody);
+      if (this.isUpdate) {
+        await this.curriculumvitaeService.updateCv(this.cvData._id, cvBody);
+      } else {
+        await this.curriculumvitaeService.createCv(cvBody);
+      }
 
       this.submitted = true;
-    } catch {
-      console.log('API error');
+    } catch (e) {
+      console.log('API error', e);
     }
   }
 

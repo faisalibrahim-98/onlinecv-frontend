@@ -14,15 +14,17 @@
     >
       Create CV
     </button>
-    <button (click)="onClickView()">View CV</button>
+    <button (click)="onClickView($event)">View CV</button>
     <button
       style="background-color: #ffa700; border-color: #ffa700"
       (click)="onClickUpdate()"
     >
       Update CV
     </button>
-    <button style="background-color: #d62d20; border-color: #d62d20"
-    (click)="onClickDelete()">
+    <button
+      style="background-color: #d62d20; border-color: #d62d20"
+      (click)="onClickDelete($event)"
+    >
       Delete CV
     </button>
   </div>
@@ -33,3 +35,46 @@
   <p>What would you like to do?</p>
   <button (click)="onClickSearch()">Search Candidates</button>
 </article>
+
+<dialog id="cv-view">
+  <article *ngIf="cvData">
+    <a (click)="toggleModal($event, 'cv-view')" class="close"> </a>
+    <b>User Id:</b>
+    <p>{{ cvData["userId"] }}</p>
+    <b>Name:</b>
+    <p>{{ cvData["name"] }}</p>
+    <b>Email:</b>
+    <p>{{ cvData["email"] }}</p>
+    <b>Interest:</b>
+    <p>{{ cvData["areaOfInterest"] }}</p>
+    <b>Skills:</b>
+    <p>{{ cvData["skills"] }}</p>
+    <b>Recent Education:</b>
+    <p>{{ cvData["mostRecentEducation"] }}</p>
+    <b>GCSE Number:</b>
+    <p>{{ cvData["GSCENumber"] }}</p>
+    <b>Education Field Name:</b>
+    <p>{{ cvData["educationalField"] }}</p>
+    <b>Job Sector:</b>
+    <p>{{ cvData["jobSector"] }}</p>
+    <b>Number of Experience:</b>
+    <p>{{ cvData["experience"] }}</p>
+    <b>Contact:</b>
+    <p>{{ cvData["contact"] }}</p>
+    <b>CreatedAt:</b>
+    <p>{{ cvData["createdAt"] }}</p>
+  </article>
+
+  <article *ngIf="!cvData">
+    <a (click)="toggleModal($event, 'cv-view')" class="close"> </a>
+    <h1>You Have Not Created a CV Yet!</h1>
+  </article>
+</dialog>
+
+<dialog id="cv-delete">
+  <article>
+    <a (click)="toggleModal($event, 'cv-delete')" class="close"> </a>
+
+    <h1 style="color: #e02007">Your CV has Been Deleted</h1>
+  </article>
+</dialog>
