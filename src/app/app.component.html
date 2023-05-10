@@ -3,9 +3,9 @@
     <li (click)="onClickHome()"><strong>CV Bank</strong></li>
   </ul>
   <ul>
-    <li><b *ngIf="!isLoggedIn" (click)="onClickLogin()">Log In</b></li>
-    <li><b *ngIf="!isLoggedIn" (click)="onClickSignup()">Sign Up</b></li>
-    <li><b *ngIf="isLoggedIn" (click)="onClickLogout()">Log Out</b></li>
+    <li><b *ngIf="!isLoggedIn" (click)="onClickLogin()" id="login-link">Log In</b></li>
+    <li><b *ngIf="!isLoggedIn" (click)="onClickSignup()" id="signup-link">Sign Up</b></li>
+    <li><b *ngIf="isLoggedIn" (click)="onClickLogout()" id="logout-link">Log Out</b></li>
   </ul>
 </nav>
 

@@ -1,4 +1,4 @@
-<a (click)="onClickGoBack()">Go Back</a>
+<a (click)="onClickGoBack()" id="go-back">Go Back</a>
 <article *ngIf="!submitted">
   <p>Create your CV by filling up the form below</p>
   <form [formGroup]="cvForm">
@@ -113,7 +113,7 @@
       <input type="tel" formControlName="contact" />
     </label>
 
-    <button type="submit" (click)="onSubmit()">{{ buttonText }}</button>
+    <button type="submit" (click)="onSubmit()" id="submit">{{ buttonText }}</button>
   </form>
 </article>
 

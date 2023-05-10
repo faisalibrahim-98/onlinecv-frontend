@@ -11,19 +11,22 @@
     <button
       style="background-color: #008744; border-color: #008744"
       (click)="onClickCreate()"
+      id="create"
     >
       Create CV
     </button>
-    <button (click)="onClickView($event)">View CV</button>
+    <button (click)="onClickView($event)" id="view">View CV</button>
     <button
       style="background-color: #ffa700; border-color: #ffa700"
       (click)="onClickUpdate()"
+      id="update"
     >
       Update CV
     </button>
     <button
       style="background-color: #d62d20; border-color: #d62d20"
       (click)="onClickDelete($event)"
+      id="delete"
     >
       Delete CV
     </button>
@@ -33,12 +36,12 @@
 <article *ngIf="userDetails.userType === 'recruiter'">
   <h1>Welcome Recruiter!</h1>
   <p>What would you like to do?</p>
-  <button (click)="onClickSearch()">Search Candidates</button>
+  <button (click)="onClickSearch()" id="search-candidates">Search Candidates</button>
 </article>
 
 <dialog id="cv-view">
   <article *ngIf="cvData">
-    <a (click)="toggleModal($event, 'cv-view')" class="close"> </a>
+    <a (click)="toggleModal($event, 'cv-view')" class="close" id="view-close"> </a>
     <b>User Id:</b>
     <p>{{ cvData["userId"] }}</p>
     <b>Name:</b>
@@ -66,14 +69,14 @@
   </article>
 
   <article *ngIf="!cvData">
-    <a (click)="toggleModal($event, 'cv-view')" class="close"> </a>
+    <a (click)="toggleModal($event, 'cv-view')" class="close" id="not-created"> </a>
     <h1>You Have Not Created a CV Yet!</h1>
   </article>
 </dialog>
 
 <dialog id="cv-delete">
   <article>
-    <a (click)="toggleModal($event, 'cv-delete')" class="close"> </a>
+    <a (click)="toggleModal($event, 'cv-delete')" class="close" id="deleted"> </a>
 
     <h1 style="color: #e02007">Your CV has Been Deleted</h1>
   </article>
